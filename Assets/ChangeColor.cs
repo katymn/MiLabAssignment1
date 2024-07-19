@@ -1,51 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class ChangeColor : MonoBehaviour
 {
-    private int colorButton;
-    [SerializeField]
-    private GameObject pointer;
+    bool colorSelect = false;
+    GameObject particleColor;
+    [SerializeField] GameObject lollipopSphere;
+    bool hover = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public void hoverToggle()
     {
-        
-        GetComponent<Renderer>().material.color = Color.red;
+        hover = true;
     }
 
-    // Update is called once per frame
-    void Update() { 
-        
-            
+    public void hoverUntoggle()
+    {
+        hover = false;
+    }
+
+    public void Update()
+    {
+
+        if (OVRInput.GetDown(OVRInput.RawButton.A) && hover)
+        {
+            lollipopSphere.GetComponent<Renderer>().material.color = new Color(Random.Range(0, 226 / 255f), Random.Range(0, 226 / 255f), Random.Range(0, 226 / 255f));
         }
 
-
-    //First Color Change (Random)
-    public void colorChange()
-    {
-        /*GetComponent<Renderer>().material.color = Color.blue;
-        colorButton--;
-        Debug.Log("colorButton is = " + colorButton);*/
-
-        GetComponent<Renderer>().material.color = new Color(Random.Range(10, 40), Random.Range(10, 40), Random.Range(10, 40));
     }
 
-    /*public void colorChange2()
-    {
-        GetComponent<Renderer>().material.color = Color.red;
-        colorButton++;
-        Debug.Log("colorButton is = " + colorButton);
-    }*/
-
-
-
-    //Disable Ouline.cs
     public void disableOutline()
     {
         Debug.Log("Outline.cs Disabled");
         GetComponent<Outline>().enabled = false;
+        GetComponent<ChangeColor>().enabled = false;
+        hover = false;
     }
 }
 

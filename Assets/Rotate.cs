@@ -1,36 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Oculus.Interaction;
 using UnityEngine;
 
 public class Rotate : MonoBehaviour
 {
 
     public float rotSpeed = 10;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void rotate()
-    { 
+        if (OVRInput.Get(OVRInput.RawButton.X))
+        {
             Debug.Log("Rotating");
             transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime);
-  
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     public void stopRotate()
     {
-        Debug.Log("Rotating");
+        Debug.Log("Stop Rotating");
         transform.Rotate(Vector3.up * 0 * Time.deltaTime);
-
+        GetComponent<Rotate>().enabled = false;
     }
 
 
@@ -38,5 +32,6 @@ public class Rotate : MonoBehaviour
     {
         Debug.Log("Outline.cs Disabled");
         GetComponent<Outline>().enabled = false;
+        GetComponent<AudioSource>().Stop();
     }
 }

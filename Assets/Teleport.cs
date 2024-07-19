@@ -21,22 +21,28 @@ public class Teleport : MonoBehaviour
             TP2Location = TP2.transform.position + new Vector3(5, 5, 0);
     }
 
+
+
     //Teleport
 
     //Specific Teleportation fxns
-        public void tP1()
-        {
+    public void tP1()
+    {
+        if (OVRInput.Get(OVRInput.RawButton.Y)){
             removeSpheres(TP1);
             teleportPlayer(TP1Location);
             addSpheres(TP2);
-        }
+        } }
 
-        public void tP2()
+    public void tP2()
+    {
+        if (OVRInput.Get(OVRInput.RawButton.Y))
         {
             removeSpheres(TP2);
             teleportPlayer(TP2Location);
             addSpheres(TP1);
         }
+    }
 
     //General Teleportation fxns
         public void teleportPlayer(Vector3 tPLocation)
@@ -53,10 +59,4 @@ public class Teleport : MonoBehaviour
         {
             TP.SetActive(true);
         }
-
-        /*public void stopVelocity()
-        {
-            gameObject.trans
-        }*/
-
 }

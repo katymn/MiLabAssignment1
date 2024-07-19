@@ -4,21 +4,51 @@ using UnityEngine;
 
 public class Scale : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    GameObject particles;
+    bool hover = false;
+    bool up;
+
+    public void hoverToggle()
     {
-        
+        hover = true;
     }
 
-    // Update is called once per frame
+    public void hoverUntoggle()
+    {
+        hover = false;
+    }
+
+    public void upToggle()
+    {
+        up = true;
+    }
+
+    public void downToggle()
+    {
+        up = false;
+    }
+
+
     void Update()
     {
-        
+        if (OVRInput.GetDown(OVRInput.RawButton.A) && hover && up)
+        {
+            transform.localScale *= 1.1f;
+        }
+        else if (OVRInput.GetDown(OVRInput.RawButton.A) && hover && (up == false))
+        {
+            transform.localScale *= 0.9f;
+        }
     }
 
     public void changeScale()
     {
+        if (OVRInput.Get(OVRInput.RawButton.X))
+        {
             transform.localScale *= 1.1f;
+            particles.SetActive(true);
+        }
     }
 
     //Disable Ouline.cs
@@ -26,5 +56,7 @@ public class Scale : MonoBehaviour
     {
         Debug.Log("Outline.cs Disabled");
         GetComponent<Outline>().enabled = false;
+        particles.SetActive(false);
+        hover = false;
     }
 }
